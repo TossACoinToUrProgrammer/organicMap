@@ -5,7 +5,7 @@ import 'firebase/firestore'
 
 import './index.css'
 
-import { App } from './App'
+import App from './App'
 
 firebase.initializeApp({
     apiKey: "AIzaSyDFVeF9MruceAqCOy67buGmFZPxz4ZWKYc",
