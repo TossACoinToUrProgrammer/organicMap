@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ReactMapGL from 'react-map-gl'
 import { firestore } from '../../index'
 
+import { Preloader } from '../preloader'
+
 const Map = () => {
 
     const [token, setToken] = useState('')
@@ -11,7 +13,7 @@ const Map = () => {
             const response = firestore.collection('firebase-config')
 
             const data = await response.get()
-            
+
             setToken(data.docs[0].data().token)
         }
 
@@ -26,7 +28,7 @@ const Map = () => {
         height: '100vh'
     })
 
-    if (!token) return <div></div>
+    if (!token) return <Preloader></Preloader>
 
     return (
         <ReactMapGL
