@@ -1,10 +1,8 @@
 import React from "react"
-import MapGL, { Layer } from "react-map-gl"
-import {useState } from "react"
+import MapGL, { Layer, GeolocateControl, NavigationControl, ScaleControl } from "react-map-gl"
+import { useState } from "react"
 
-import RegionTitles from "./RegionTitles/RegionTitles"
-
-const Map = ({data, token}) => {
+const Map = ({ data, token }) => {
   const [viewport, setViewport] = useState({
     latitude: 41.54556,
     longitude: 74.65086,
@@ -71,7 +69,7 @@ const Map = ({data, token}) => {
         "text-halo-color": "#f1f1f1",
         "text-halo-width": 0.3,
       },
-    });
+    })
 
     setMapLoaded(true)
   }
@@ -85,6 +83,7 @@ const Map = ({data, token}) => {
       longitude: e.features[0].properties.position_lng,
       latitude: e.features[0].properties.position_lat,
       zoom: e.features[0].properties.zoom,
+      bearing: e.features[0].properties.bearing,
     }))
   }
 
@@ -99,12 +98,16 @@ const Map = ({data, token}) => {
       maxZoom={10}
       mapboxApiAccessToken={token}
       onViewportChange={onViewportChange}
+      mapStyle={"mapbox://styles/mapbox/streets-v11"}
     >
-      {mapLoaded && (
-        <>
-          <Layer beforeId={"outline"} {...coloredLayer} />
-        </>
-      )}
+      {mapLoaded && <Layer beforeId={"outline"} {...coloredLayer} />}
+      <GeolocateControl
+        style={{ right: 10, bottom: 120 }}
+        positionOptions={{ enableHighAccuracy: true }}
+        trackUserLocation={true}
+      />
+      <NavigationControl style={{ right: 10, bottom: 30 }} />
+      <ScaleControl style={{ left: 10, bottom: 30 }} />
     </MapGL>
   )
 }
