@@ -1,10 +1,8 @@
 import React from "react"
-import MapGL, { Layer } from "react-map-gl"
-import {useState } from "react"
+import MapGL, { Layer, GeolocateControl, NavigationControl, ScaleControl } from "react-map-gl"
+import { useState } from "react"
 
-import RegionTitles from "./RegionTitles/RegionTitles"
-
-const Map = ({data, token}) => {
+const Map = ({ data, token }) => {
   const [viewport, setViewport] = useState({
     latitude: 41.54556,
     longitude: 74.65086,
@@ -12,7 +10,7 @@ const Map = ({data, token}) => {
   })
 
   const [selected, setSelected] = useState("")
-  let [mapLoaded, setMapLoaded] = useState(false)
+  const [mapLoaded, setMapLoaded] = useState(false)
 
   const coloredLayer = {
     id: "colored",
@@ -58,6 +56,21 @@ const Map = ({data, token}) => {
       },
     })
 
+    map.addLayer({
+      id: "titles",
+      type: "symbol",
+      source: "districts",
+      layout: {
+        "text-field": ["get", "title_ru"],
+        "text-size": 14,
+      },
+      paint: {
+        "text-color": "#fff",
+        "text-halo-color": "#f1f1f1",
+        "text-halo-width": 0.3,
+      },
+    })
+
     setMapLoaded(true)
   }
 
@@ -66,10 +79,11 @@ const Map = ({data, token}) => {
     setSelected(e.features[0].properties.title_ru)
     setViewport((prev) => ({
       ...prev,
-      transitionDuration: 600,
+      transitionDuration: 300,
       longitude: e.features[0].properties.position_lng,
       latitude: e.features[0].properties.position_lat,
       zoom: e.features[0].properties.zoom,
+      bearing: e.features[0].properties.bearing,
     }))
   }
 
@@ -81,15 +95,19 @@ const Map = ({data, token}) => {
       onLoad={onLoad}
       onClick={onClick}
       minZoom={6.5}
+      maxZoom={10}
       mapboxApiAccessToken={token}
       onViewportChange={onViewportChange}
+      mapStyle={"mapbox://styles/mapbox/streets-v11"}
     >
-      {mapLoaded && (
-        <>
-          <RegionTitles districts={data} />
-          <Layer beforeId={"outline"} {...coloredLayer} />
-        </>
-      )}
+      {mapLoaded && <Layer beforeId={"outline"} {...coloredLayer} />}
+      <GeolocateControl
+        style={{ right: 10, bottom: 120 }}
+        positionOptions={{ enableHighAccuracy: true }}
+        trackUserLocation={true}
+      />
+      <NavigationControl style={{ right: 10, bottom: 30 }} />
+      <ScaleControl style={{ left: 10, bottom: 30 }} />
     </MapGL>
   )
 }
