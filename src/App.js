@@ -22,11 +22,11 @@ const App = () => {
         fetchToken()
     }, [])
 
-    if (!token) return <Preloader></Preloader>
+    if (!token) return <Preloader />
 
     return (
         <><Map data={districts} token={token} /></>
     )
 }
 
-export default App
+export { App }
