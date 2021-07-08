@@ -5,7 +5,7 @@ import districts from './districts.json'
 import { firestore } from './index'
 
 import Map from './components/Map/Map'
-import { Preloader } from './components/preloader/index.jsx'
+import { Preloader } from './components/Preloader/index.jsx'
 
 const App = () => {
     const [token, setToken] = useState('')
