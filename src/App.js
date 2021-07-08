@@ -4,7 +4,7 @@ import districts from './districts.json'
 
 import { firestore } from './index'
 
-import Map from './components/Map/Map'
+import { Map } from './components/Map/Map'
 import { Preloader } from './components/Preloader/'
 
 const App = () => {
@@ -29,4 +29,4 @@ const App = () => {
     )
 }
 
-export default App
+export { App }
