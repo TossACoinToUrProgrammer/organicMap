@@ -25,7 +25,7 @@ const App = () => {
     if (!token) return <Preloader />
 
     return (
-        <><Map data={districts} token={token} /></>
+        <Map data={districts} token={token} />
     )
 }
 
