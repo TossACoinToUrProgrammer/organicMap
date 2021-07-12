@@ -23,6 +23,7 @@ const App = () => {
         fetchToken()
     }, [])
 
+    console.log('token:', token)
     if (!token) return <Preloader />
 
     return (
