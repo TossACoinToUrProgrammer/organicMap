@@ -8,7 +8,6 @@ import Map from './components/Map/Map'
 import { Preloader } from './components/Preloader/index.jsx'
 
 const App = () => {
-    console.log('hi')
     const [token, setToken] = useState('')
 
     useEffect(() => {
