@@ -10,6 +10,7 @@ import { Preloader } from './components/Preloader/index.jsx'
 const App = () => {
     const [token, setToken] = useState('')
 
+    
     useEffect(() => {
         const fetchToken = async () => {
             const response = firestore.collection('firebase-config')
