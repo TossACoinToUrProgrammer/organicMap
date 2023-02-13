@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const fetchedToken = process.env.REACT_APP_MAPBOX_TOKEN
+      const fetchedToken = "pk.eyJ1IjoiYXJsZXBoZW4iLCJhIjoiY2txNjNzNWNzMTlkdjJ2bzBsbndiMTJsZiJ9.YZyYcVhsdiiK7530dMyFfg"
 
       setToken(fetchedToken)
     }
